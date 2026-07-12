@@ -1,38 +1,164 @@
+$dark: #2b2b2b;
+$gray-bg: #eeeeee;
+$text-dark: #1a1a1a;
+$text-eyebrow: #8b8b8b;
+$text-body: #565656;
+$border-color: #e2e2e2;
+$orange: #e35b3c;
+
+* {
+  box-sizing: border-box;
+}
+
 .App {
-  text-align: center;
+  text-align: left;
+  font-family: 'Roboto', sans-serif;
+  color: $text-dark;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+.site-header {
+  background-color: #333333;
+  height: 64px;
+  display: flex;
+  align-items: center;
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  &__inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+
+  &__mark {
+    color: $orange;
+    font-size: 18px;
+  }
+
+  &__tld {
+    font-weight: 400;
+    color: #d8d8d8;
+  }
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+
+  &__link {
+    color: #e6e6e6;
+    text-decoration: none;
+    font-size: 15px;
+
+    &--active {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      color: #fff;
+    }
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
+.section {
+  padding: 64px 40px 80px;
+
+  &--dev {
+    background-color: $gray-bg;
+  }
+
+  &--ux {
+    background-color: #fff;
+  }
+
+  &__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 16px;
+  }
+
+  &__subtitle {
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    max-width: 780px;
+    margin: 0 auto 48px;
+  }
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: #fff;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  padding: 32px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+  min-height: 320px;
 
-.App-link {
-  color: #61dafb;
-}
+  &__icon {
+    height: 110px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+    svg {
+      max-width: 120px;
+      max-height: 100px;
+    }
   }
-  to {
-    transform: rotate(360deg);
+
+  &__eyebrow {
+    font-size: 13px;
+    color: $text-eyebrow;
+    margin: 0 0 8px;
+  }
+
+  &__title {
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 0 0 16px;
+  }
+
+  &__body {
+    font-size: 15px;
+    line-height: 1.6;
+    color: $text-body;
+    margin: 0;
   }
 }
