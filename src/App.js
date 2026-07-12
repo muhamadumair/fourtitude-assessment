@@ -124,6 +124,7 @@ function FloatingField({
 function App() {
   const [activeSection, setActiveSection] = useState('dev');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const {
     register,
     handleSubmit,
@@ -164,7 +165,8 @@ function App() {
   };
 
   const onSubmit = () => {
-    window.alert('Thank you for reaching out! We will connect with you soon.');
+    setShowModal(true);
+    reset();
   };
 
   const onReset = () => {
@@ -315,6 +317,28 @@ function App() {
           <p className="site-footer__text">&copy; 2021 fourtitude.asia. All rights reserved.</p>
         </div>
       </footer>
+
+      {showModal && (
+        <div className="modal-overlay" onClick={() => setShowModal(false)}>
+          <div
+            className="modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 id="modal-title" className="modal__title">Thank you!</h2>
+            <p className="modal__body">We will get in touch with you as soon as possible.</p>
+            <button
+              className="modal__btn"
+              onClick={() => setShowModal(false)}
+              autoFocus
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

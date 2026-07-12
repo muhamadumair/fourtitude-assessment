@@ -428,6 +428,71 @@ html {
   }
 }
 
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.modal {
+  background: $white;
+  border-radius: 10px;
+  padding: 32px;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.2);
+  animation: modal-in 0.2s ease;
+
+  &__title {
+    font-size: 22px;
+    font-weight: 700;
+    color: $text-body;
+    margin: 0 0 12px;
+  }
+
+  &__body {
+    font-size: 16px;
+    line-height: 1.5;
+    color: $text-body;
+    margin: 0 0 24px;
+  }
+
+  &__btn {
+    min-width: 100px;
+    height: 42px;
+    background: $primary-blue;
+    border: none;
+    border-radius: 8px;
+    color: $white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0 24px;
+
+    &:hover {
+      background: darken($primary-blue, 8%);
+    }
+  }
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .site-footer {
   background-color: $dark;
   min-height: 49px;
