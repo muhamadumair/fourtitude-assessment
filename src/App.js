@@ -34,6 +34,26 @@ const devCards = [
   }
 ];
 
+const uxCards = [
+  {
+    icon: (<img src="/assets/user-experience.svg" alt="UX Research" />),
+    eyebrow: 'User Experience',
+    title: 'Intuitive digital experiences to elevate your business',
+    body: 'Intuitive digital experiences to elevate your business'
+  },
+  {
+    icon: (<img src="/assets/user-interface.svg" alt="UI Design" />),
+    eyebrow: 'User Interface',
+    title: 'Deliver memorable brand experiences using human-centred design',
+    body: 'We meld innovation and technology with content and design best practices to translate your business goals into experiences that are meaningful to customers.'
+  },
+  {
+    icon: (<img src="/assets/cloud-marketing.svg" alt="User Testing" />),
+    eyebrow: 'Cloud Marketing',
+    title: 'Leverage cloud applications for digital marketing efficacy',
+    body: 'Through social media and cloud marketing, we help create impactful digital campaigns and experiences that are bound to captivate audiences.'
+  }
+];
 
 
 function Card({ icon, eyebrow, title, body }) {
@@ -83,6 +103,56 @@ function App() {
           </div>
         </div>
       </section>
+
+      <section className="section section--ux" id="ux">
+        <div className="section__inner">
+          <div className="section__header">
+            <h2 className="section__title">UI & UX Design</h2>
+            <p className="section__subtitle">
+              We bring value to your business by producing seamless, multi-platform digital experiences that result in strong,
+              <br />
+              meaningful user engagements. Read more about our services below.
+            </p>
+          </div>
+
+          <div className="card-grid card-grid--three">
+            {uxCards.map((c, i) => (
+              <Card key={i} {...c} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section section--connect" id="connect">
+        <div className="section__inner">
+          <div className="section__header">
+            <h1 className="section__title">Connect</h1>
+            <p className="section__subtitle">
+              Every successful connection starts in conversation. Drop us a line today :)
+            </p>
+          </div>
+
+          <form className="connect-form">
+            <div className="connect-form__fields">
+              <input type="text" className="connect-form__input" placeholder="Name" />
+              <input type="email" className="connect-form__input" placeholder="Email address" />
+              <input type="tel" className="connect-form__input" placeholder="Contact no." />
+              <textarea className="connect-form__textarea" placeholder="How can we help?" />
+            </div>
+
+            <div className="connect-form__buttons">
+              <button type="reset" className="connect-form__btn connect-form__btn--clear">Clear</button>
+              <button type="submit" className="connect-form__btn connect-form__btn--submit">Connect with us</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <footer className="site-footer">
+        <div className="site-footer__inner">
+          <p className="site-footer__text">&copy; 2021 fourtitude.asia. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 }

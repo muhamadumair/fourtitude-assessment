@@ -7,6 +7,10 @@ $text-eyebrow: #666666;
 $text-body: #000000;
 $border-color: #e2e2e2;
 $orange: #e35b3c;
+$nav-link: #e6e6e6;
+$input-border: #cccccc;
+$placeholder: #9a9a9a;
+$primary-blue: #0f4ab2;
 
 * {
   box-sizing: border-box;
@@ -64,7 +68,7 @@ $orange: #e35b3c;
   gap: 30px;
 
   &__link {
-    color: #e6e6e6;
+    color: $nav-link;
     text-decoration: none;
     font-size: 15px;
 
@@ -89,6 +93,10 @@ $orange: #e35b3c;
 
   &--ux {
     background-color: $white;
+  }
+
+  &--connect {
+    background-color: $gray-bg;
   }
 
   &__inner {
@@ -191,5 +199,103 @@ $orange: #e35b3c;
     line-height: 1.6;
     color: $text-body;
     margin: 0;
+  }
+}
+
+.connect-form {
+  &__fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+
+  &__input {
+    flex: 1 1 360px;
+    height: 62px;
+    background: $white;
+    border: 1px solid $input-border;
+    border-radius: 10px;
+    padding: 0 20px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    color: $text-body;
+
+    &::placeholder {
+      color: $placeholder;
+      font-style: italic;
+    }
+  }
+
+  &__textarea {
+    flex: 1 1 100%;
+    height: 150px;
+    background: $white;
+    border: 1px solid $input-border;
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    color: $text-body;
+    resize: none;
+
+    &::placeholder {
+      color: $placeholder;
+      font-style: italic;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    width: 410px;
+    height: 62px;
+    gap: 30px;
+    margin: 0 auto;
+  }
+
+  &__btn {
+    flex: 1;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+
+    &--clear {
+      background: $white;
+      border: 2px solid $primary-blue;
+      color: $primary-blue;
+    }
+
+    &--submit {
+      background: $primary-blue;
+      border: 2px solid $primary-blue;
+      color: $white;
+    }
+  }
+}
+
+.site-footer {
+  background-color: $dark;
+  height: 49px;
+  display: flex;
+  align-items: center;
+
+  &__inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__text {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0;
+    color: $white;
   }
 }
