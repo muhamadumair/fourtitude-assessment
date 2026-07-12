@@ -132,8 +132,7 @@ function App() {
     formState: { errors, isValid },
   } = useForm({
     resolver: zodResolver(schema),
-    mode: 'onBlur',
-    reValidateMode: 'onChange',
+    mode: 'onChange',
   });
 
   useEffect(() => {
@@ -327,15 +326,19 @@ function App() {
             aria-labelledby="modal-title"
             onClick={(e) => e.stopPropagation()}
           >
-            <h2 id="modal-title" className="modal__title">Thank you!</h2>
-            <p className="modal__body">We will get in touch with you as soon as possible.</p>
-            <button
-              className="modal__btn"
-              onClick={() => setShowModal(false)}
-              autoFocus
-            >
-              OK
-            </button>
+            <div className="modal__header">
+              <h2 id="modal-title" className="modal__title">This page says</h2>
+            </div>
+            <div className="modal__body">
+              <p className="modal__text">Thank you! We will get in touch with you as soon as possible.</p>
+              <button
+                className="modal__btn"
+                onClick={() => setShowModal(false)}
+                autoFocus
+              >
+                OK
+              </button>
+            </div>
           </div>
         </div>
       )}
