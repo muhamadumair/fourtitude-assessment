@@ -1,12 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import './App.scss';
-
-
-const HEADER_HEIGHT = 50;
-const SECTIONS = ['dev', 'ux', 'connect'];
 
 const devCards = [
   {
@@ -135,32 +131,9 @@ function App() {
     mode: 'onChange',
   });
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + HEADER_HEIGHT + 20;
-      let current = SECTIONS[0];
-      for (const id of SECTIONS) {
-        const el = document.getElementById(id);
-        if (el && el.offsetTop <= scrollPosition) {
-          current = id;
-        }
-      }
-      setActiveSection(current);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const handleNavClick = (e, id) => {
-    e.preventDefault();
+  const handleNavClick = (id) => {
     setMenuOpen(false);
-    const el = document.getElementById(id);
-    if (el) {
-      const top = el.offsetTop - HEADER_HEIGHT;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
+    setActiveSection(id);
   };
 
   const onSubmit = () => {
@@ -193,21 +166,21 @@ function App() {
             <a
               href="#dev"
               className={`site-nav__link ${activeSection === 'dev' ? 'site-nav__link--active' : ''}`}
-              onClick={(e) => handleNavClick(e, 'dev')}
+              onClick={() => handleNavClick('dev')}
             >
               Development & Integration
             </a>
             <a
               href="#ux"
               className={`site-nav__link ${activeSection === 'ux' ? 'site-nav__link--active' : ''}`}
-              onClick={(e) => handleNavClick(e, 'ux')}
+              onClick={() => handleNavClick('ux')}
             >
               UI & UX Design
             </a>
             <a
               href="#connect"
               className={`site-nav__link ${activeSection === 'connect' ? 'site-nav__link--active' : ''}`}
-              onClick={(e) => handleNavClick(e, 'connect')}
+              onClick={() => handleNavClick('connect')}
             >
               Connect
             </a>

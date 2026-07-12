@@ -152,6 +152,7 @@ html {
 
 .section {
   padding: 64px 40px 80px;
+  scroll-margin-top: 50px;
 
   @media (max-width: 768px) {
     padding: 40px 20px 48px;
