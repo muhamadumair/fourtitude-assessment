@@ -16,6 +16,10 @@ $primary-blue: #0f4ab2;
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .App {
   text-align: left;
   font-family: 'Roboto', sans-serif;
@@ -38,9 +42,39 @@ $primary-blue: #0f4ab2;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 768px) {
+      padding: 0 20px;
+    }
+  }
+
+  &__menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+
+    span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background-color: $white;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    @media (max-width: 768px) {
+      display: flex;
+    }
   }
 }
 
@@ -67,10 +101,40 @@ $primary-blue: #0f4ab2;
   align-items: center;
   gap: 30px;
 
+  @media (max-width: 768px) {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background-color: $dark;
+    padding: 8px 20px;
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 999;
+
+    &--open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
   &__link {
     color: $nav-link;
     text-decoration: none;
     font-size: 15px;
+    transition: color 0.2s ease;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba($white, 0.1);
+    }
 
     &--active {
       text-decoration: underline;
@@ -80,12 +144,18 @@ $primary-blue: #0f4ab2;
 
     &:hover {
       color: $white;
+      text-decoration: underline;
+      text-underline-offset: 4px;
     }
   }
 }
 
 .section {
   padding: 64px 40px 80px;
+
+  @media (max-width: 768px) {
+    padding: 40px 20px 48px;
+  }
 
   &--dev {
     background-color: $gray-bg;
@@ -156,6 +226,12 @@ $primary-blue: #0f4ab2;
   flex-direction: column;
   min-height: 342px;
   box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 8px 12px 4px rgba(0, 0, 0, 0.12);
+  }
 
   &__icon {
     height: 110px;
@@ -210,9 +286,20 @@ $primary-blue: #0f4ab2;
     margin-bottom: 30px;
   }
 
-  &__input {
+  &__field {
+    position: relative;
     flex: 1 1 360px;
-    height: 62px;
+    display: flex;
+    flex-direction: column;
+
+    &--textarea {
+      flex: 1 1 100%;
+    }
+  }
+
+  &__input,
+  &__textarea {
+    width: 100%;
     background: $white;
     border: 1px solid $input-border;
     border-radius: 10px;
@@ -220,29 +307,69 @@ $primary-blue: #0f4ab2;
     font-family: 'Roboto', sans-serif;
     font-size: 15px;
     color: $text-body;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
-    &::placeholder {
-      color: $placeholder;
-      font-style: italic;
+    &:focus {
+      border-color: $primary-blue;
+      box-shadow: 0 0 0 3px rgba($primary-blue, 0.15);
     }
   }
 
-  &__textarea {
-    flex: 1 1 100%;
-    height: 150px;
-    background: $white;
-    border: 1px solid $input-border;
-    border-radius: 10px;
-    padding: 16px 20px;
-    font-family: 'Roboto', sans-serif;
-    font-size: 15px;
-    color: $text-body;
-    resize: none;
+  &__input {
+    height: 62px;
+    padding-top: 18px;
+  }
 
-    &::placeholder {
-      color: $placeholder;
-      font-style: italic;
+  &__textarea {
+    height: 150px;
+    padding: 26px 20px 16px;
+    resize: none;
+  }
+
+  &__input::placeholder,
+  &__textarea::placeholder {
+    color: transparent;
+  }
+
+  &__label {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $placeholder;
+    font-style: italic;
+    font-size: 15px;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    transform-origin: left top;
+
+    .connect-form__field--textarea & {
+      top: 26px;
+      transform: translateY(0);
     }
+  }
+
+  &__input:focus + &__label,
+  &__input:not(:placeholder-shown) + &__label,
+  &__textarea:focus + &__label,
+  &__textarea:not(:placeholder-shown) + &__label {
+    top: 10px;
+    transform: translateY(0) scale(0.75);
+    color: $text-eyebrow;
+    font-style: normal;
+  }
+
+  &__textarea:focus + &__label,
+  &__textarea:not(:placeholder-shown) + &__label {
+    top: 10px;
+  }
+
+  &__error {
+    color: $orange;
+    font-size: 12px;
+    margin-top: 6px;
+    min-height: 18px;
   }
 
   &__buttons {
@@ -252,6 +379,12 @@ $primary-blue: #0f4ab2;
     height: 62px;
     gap: 30px;
     margin: 0 auto;
+
+    @media (max-width: 600px) {
+      width: 100%;
+      height: auto;
+      flex-direction: column;
+    }
   }
 
   &__btn {
@@ -261,26 +394,50 @@ $primary-blue: #0f4ab2;
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+
+    @media (max-width: 600px) {
+      height: 48px;
+    }
 
     &--clear {
       background: $white;
       border: 2px solid $primary-blue;
       color: $primary-blue;
+
+      &:hover {
+        background: rgba($primary-blue, 0.05);
+      }
     }
 
     &--submit {
       background: $primary-blue;
       border: 2px solid $primary-blue;
       color: $white;
+
+      &:hover:not(:disabled) {
+        background: darken($primary-blue, 8%);
+        border-color: darken($primary-blue, 8%);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
     }
   }
 }
 
 .site-footer {
   background-color: $dark;
-  height: 49px;
+  min-height: 49px;
   display: flex;
   align-items: center;
+  padding: 12px 40px;
+
+  @media (max-width: 768px) {
+    padding: 12px 20px;
+  }
 
   &__inner {
     width: 100%;
@@ -288,6 +445,10 @@ $primary-blue: #0f4ab2;
     margin: 0 auto;
     display: flex;
     justify-content: flex-end;
+
+    @media (max-width: 768px) {
+      justify-content: center;
+    }
   }
 
   &__text {
