@@ -26,6 +26,13 @@
   flex-direction: column;
   justify-content: space-between;
 
+  @media (max-width: $breakpoint-tablet) {
+    width: 100%;
+    max-width: 445px;
+    min-height: 130px;
+    height: auto;
+  }
+
   &__header {
     margin-bottom: 8px;
   }
@@ -51,6 +58,13 @@
     color: $text-body;
     margin: 0;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @media (max-width: $breakpoint-tablet) {
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
   }
 
   &__btn {
