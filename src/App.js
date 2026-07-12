@@ -1,5 +1,12 @@
+import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import './App.scss';
 
+
+const HEADER_HEIGHT = 50;
+const SECTIONS = ['dev', 'ux', 'connect'];
 
 const devCards = [
   {
@@ -69,7 +76,101 @@ function Card({ icon, eyebrow, title, body }) {
   );
 }
 
+const schema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  email: z
+    .string()
+    .min(1, 'Email is required')
+    .email('Please enter a valid email address'),
+  contact: z
+    .string()
+    .min(1, 'Contact no. is required')
+    .regex(/^[\d+\-()\s]+$/, 'Please enter a valid contact number')
+    .refine((value) => value.replace(/\D/g, '').length >= 7, {
+      message: 'Contact number must be at least 7 digits',
+    }),
+  message: z.string().min(1, 'Message is required'),
+});
+
+function FloatingField({
+  id,
+  name,
+  type = 'text',
+  label,
+  register,
+  error,
+  isTextarea = false,
+}) {
+  const InputTag = isTextarea ? 'textarea' : 'input';
+  return (
+    <div className={`connect-form__field ${isTextarea ? 'connect-form__field--textarea' : ''}`}>
+      <InputTag
+        id={id}
+        type={isTextarea ? undefined : type}
+        className={isTextarea ? 'connect-form__textarea' : 'connect-form__input'}
+        placeholder=" "
+        aria-invalid={!!error}
+        aria-describedby={error ? `${id}-error` : undefined}
+        {...register(name)}
+      />
+      <label htmlFor={id} className="connect-form__label">{label}</label>
+      {error && (
+        <span id={`${id}-error`} className="connect-form__error">{error.message}</span>
+      )}
+    </div>
+  );
+}
+
 function App() {
+  const [activeSection, setActiveSection] = useState('dev');
+  const [menuOpen, setMenuOpen] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isValid },
+  } = useForm({
+    resolver: zodResolver(schema),
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+  });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + HEADER_HEIGHT + 20;
+      let current = SECTIONS[0];
+      for (const id of SECTIONS) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollPosition) {
+          current = id;
+        }
+      }
+      setActiveSection(current);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleNavClick = (e, id) => {
+    e.preventDefault();
+    setMenuOpen(false);
+    const el = document.getElementById(id);
+    if (el) {
+      const top = el.offsetTop - HEADER_HEIGHT;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  };
+
+  const onSubmit = () => {
+    window.alert('Thank you for reaching out! We will connect with you soon.');
+  };
+
+  const onReset = () => {
+    reset();
+  };
+
   return (
     <div className="App">
       <header className="site-header">
@@ -77,10 +178,38 @@ function App() {
           <div className="brand">
             <img src="/assets/logo.svg" alt="fourtitude" />
           </div>
-          <nav className="site-nav">
-            <a href="#dev" className="site-nav__link site-nav__link--active">Development & Integration</a>
-            <a href="#ux" className="site-nav__link">UI &UX Design</a>
-            <a href="#connect" className="site-nav__link">Connect</a>
+          <button
+            className="site-header__menu-toggle"
+            aria-label="Toggle navigation"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <nav className={`site-nav ${menuOpen ? 'site-nav--open' : ''}`}>
+            <a
+              href="#dev"
+              className={`site-nav__link ${activeSection === 'dev' ? 'site-nav__link--active' : ''}`}
+              onClick={(e) => handleNavClick(e, 'dev')}
+            >
+              Development & Integration
+            </a>
+            <a
+              href="#ux"
+              className={`site-nav__link ${activeSection === 'ux' ? 'site-nav__link--active' : ''}`}
+              onClick={(e) => handleNavClick(e, 'ux')}
+            >
+              UI & UX Design
+            </a>
+            <a
+              href="#connect"
+              className={`site-nav__link ${activeSection === 'connect' ? 'site-nav__link--active' : ''}`}
+              onClick={(e) => handleNavClick(e, 'connect')}
+            >
+              Connect
+            </a>
           </nav>
         </div>
       </header>
@@ -132,17 +261,50 @@ function App() {
             </p>
           </div>
 
-          <form className="connect-form">
+          <form className="connect-form" onSubmit={handleSubmit(onSubmit)} onReset={onReset}>
             <div className="connect-form__fields">
-              <input type="text" className="connect-form__input" placeholder="Name" />
-              <input type="email" className="connect-form__input" placeholder="Email address" />
-              <input type="tel" className="connect-form__input" placeholder="Contact no." />
-              <textarea className="connect-form__textarea" placeholder="How can we help?" />
+              <FloatingField
+                id="name"
+                name="name"
+                label="Name"
+                register={register}
+                error={errors.name}
+              />
+              <FloatingField
+                id="email"
+                name="email"
+                type="email"
+                label="Email address"
+                register={register}
+                error={errors.email}
+              />
+              <FloatingField
+                id="contact"
+                name="contact"
+                type="tel"
+                label="Contact no."
+                register={register}
+                error={errors.contact}
+              />
+              <FloatingField
+                id="message"
+                name="message"
+                label="How can we help?"
+                register={register}
+                error={errors.message}
+                isTextarea
+              />
             </div>
 
             <div className="connect-form__buttons">
               <button type="reset" className="connect-form__btn connect-form__btn--clear">Clear</button>
-              <button type="submit" className="connect-form__btn connect-form__btn--submit">Connect with us</button>
+              <button
+                type="submit"
+                className="connect-form__btn connect-form__btn--submit"
+                disabled={!isValid}
+              >
+                Connect with us
+              </button>
             </div>
           </form>
         </div>
