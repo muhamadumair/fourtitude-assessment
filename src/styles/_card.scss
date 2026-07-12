@@ -25,8 +25,8 @@
   will-change: transform;
 
   &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.15);
+    transform: scale(1.10);
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.2);
   }
 
   &__icon {
@@ -37,8 +37,10 @@
 
     svg,
     img {
-      max-width: 120px;
-      max-height: 100px;
+      width: var(--icon-width, auto);
+      height: var(--icon-height, auto);
+      max-width: var(--icon-width, 120px);
+      max-height: var(--icon-height, 100px);
     }
   }
 
