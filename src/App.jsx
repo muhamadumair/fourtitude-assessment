@@ -9,7 +9,7 @@ import Modal from './components/Modal';
 import devCards from './data/devCards';
 import uxCards from './data/uxCards';
 
-function App() {
+const App = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (

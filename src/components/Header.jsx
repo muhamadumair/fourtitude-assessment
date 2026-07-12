@@ -6,7 +6,7 @@ const navItems = [
   { id: 'connect', label: 'Connect' },
 ];
 
-function Header() {
+const Header = () => {
   const [activeSection, setActiveSection] = useState('dev');
   const [menuOpen, setMenuOpen] = useState(false);
 

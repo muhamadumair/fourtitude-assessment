@@ -1,7 +1,9 @@
-function Card({ icon, eyebrow, title, body }) {
+const Card = ({ iconSrc, iconAlt, eyebrow, title, body }) => {
   return (
     <div className="card">
-      <div className="card__icon">{icon}</div>
+      <div className="card__icon">
+        <img src={iconSrc} alt={iconAlt} />
+      </div>
       <div className="card__content">
         <p className="card__eyebrow">{eyebrow}</p>
         <h3 className="card__title">{title}</h3>

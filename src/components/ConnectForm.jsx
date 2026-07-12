@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import contactSchema from '../schema/contactSchema';
 
-function FloatingField({
+const FloatingField = ({
   id,
   name,
   type = 'text',
@@ -10,7 +10,7 @@ function FloatingField({
   register,
   error,
   isTextarea = false,
-}) {
+}) => {
   const InputTag = isTextarea ? 'textarea' : 'input';
   return (
     <div className={`connect-form__field ${isTextarea ? 'connect-form__field--textarea' : ''}`}>
@@ -31,7 +31,7 @@ function FloatingField({
   );
 }
 
-function ConnectForm({ onSuccess }) {
+const ConnectForm = ({ onSuccess }) => {
   const {
     register,
     handleSubmit,
@@ -47,10 +47,6 @@ function ConnectForm({ onSuccess }) {
     reset();
   };
 
-  const onReset = () => {
-    reset();
-  };
-
   return (
     <section className="section section--connect" id="connect">
       <div className="section__inner">
@@ -61,7 +57,7 @@ function ConnectForm({ onSuccess }) {
           </p>
         </div>
 
-        <form className="connect-form" onSubmit={handleSubmit(onSubmit)} onReset={onReset}>
+        <form className="connect-form" onSubmit={handleSubmit(onSubmit)} onReset={reset}>
           <div className="connect-form__fields">
             <FloatingField
               id="name"

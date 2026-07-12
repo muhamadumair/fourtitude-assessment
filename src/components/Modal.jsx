@@ -1,10 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
-function Modal({ isOpen, onClose }) {
+const Modal = ({ isOpen, onClose }) => {
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
-        onClose();
+        onCloseRef.current();
       }
     };
 
@@ -12,7 +15,7 @@ function Modal({ isOpen, onClose }) {
       window.addEventListener('keydown', handleKeyDown);
     }
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 

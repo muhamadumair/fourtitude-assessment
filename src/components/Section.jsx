@@ -1,4 +1,4 @@
-function Section({ id, title, subtitle, className = '', children }) {
+const Section = ({ id, title, subtitle, className = '', children }) => {
   return (
     <section className={`section ${className}`} id={id}>
       <div className="section__inner">
