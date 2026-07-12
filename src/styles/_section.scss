@@ -1,0 +1,54 @@
+.section {
+  padding: 64px 40px 80px;
+  scroll-margin-top: 50px;
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: 40px 20px 48px;
+  }
+
+  &--dev {
+    background-color: $gray-bg;
+  }
+
+  &--ux {
+    background-color: $white;
+  }
+
+  &--connect {
+    background-color: $gray-bg;
+  }
+
+  &__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    max-width: 833px;
+    margin: 0 auto 48px;
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 16px;
+    letter-spacing: 0;
+    text-align: center;
+    color: $text-body;
+    margin: 0;
+  }
+
+  &__subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0;
+    text-align: center;
+    color: $text-body;
+    margin: 0;
+  }
+}

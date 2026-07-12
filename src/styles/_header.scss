@@ -1,0 +1,122 @@
+.site-header {
+  background-color: $dark;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+
+  &__inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @media (max-width: $breakpoint-tablet) {
+      padding: 0 20px;
+    }
+  }
+
+  &__menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+
+    span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background-color: $white;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    @media (max-width: $breakpoint-tablet) {
+      display: flex;
+    }
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  width: 172px;
+  height: 20px;
+
+  &__mark {
+    color: $orange;
+    font-size: 18px;
+  }
+
+  &__tld {
+    font-weight: 400;
+    color: $light-gray;
+  }
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+
+  @media (max-width: $breakpoint-tablet) {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background-color: $dark;
+    padding: 8px 20px;
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 999;
+
+    &--open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  &__link {
+    color: $nav-link;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.2s ease;
+
+    @media (max-width: $breakpoint-tablet) {
+      width: 100%;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba($white, 0.1);
+    }
+
+    &--active {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      color: $white;
+    }
+
+    &:hover {
+      color: $white;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+  }
+}

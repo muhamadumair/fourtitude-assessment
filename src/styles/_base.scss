@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.App {
+  text-align: left;
+  font-family: 'Roboto', sans-serif;
+  color: $text-dark;
+  padding-top: 50px;
+}

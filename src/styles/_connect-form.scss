@@ -1,0 +1,149 @@
+.connect-form {
+  &__fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+
+  &__field {
+    position: relative;
+    flex: 1 1 360px;
+    display: flex;
+    flex-direction: column;
+
+    &--textarea {
+      flex: 1 1 100%;
+    }
+  }
+
+  &__input,
+  &__textarea {
+    width: 100%;
+    background: $white;
+    border: 1px solid $input-border;
+    border-radius: 10px;
+    padding: 0 20px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    color: $text-body;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus {
+      border-color: $primary-blue;
+      box-shadow: 0 0 0 3px rgba($primary-blue, 0.15);
+    }
+  }
+
+  &__input {
+    height: 62px;
+    padding-top: 18px;
+  }
+
+  &__textarea {
+    height: 150px;
+    padding: 26px 20px 16px;
+    resize: none;
+  }
+
+  &__input::placeholder,
+  &__textarea::placeholder {
+    color: transparent;
+  }
+
+  &__label {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $placeholder;
+    font-style: italic;
+    font-size: 15px;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    transform-origin: left top;
+
+    .connect-form__field--textarea & {
+      top: 26px;
+      transform: translateY(0);
+    }
+  }
+
+  &__input:focus+&__label,
+  &__input:not(:placeholder-shown)+&__label,
+  &__textarea:focus+&__label,
+  &__textarea:not(:placeholder-shown)+&__label {
+    top: 10px;
+    transform: translateY(0) scale(0.75);
+    color: $text-eyebrow;
+    font-style: normal;
+  }
+
+  &__textarea:focus+&__label,
+  &__textarea:not(:placeholder-shown)+&__label {
+    top: 10px;
+  }
+
+  &__error {
+    color: $orange;
+    font-size: 12px;
+    margin-top: 6px;
+    min-height: 18px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    width: 410px;
+    height: 62px;
+    gap: 30px;
+    margin: 0 auto;
+
+    @media (max-width: $breakpoint-mobile) {
+      width: 100%;
+      height: auto;
+      flex-direction: column;
+    }
+  }
+
+  &__btn {
+    flex: 1;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+
+    @media (max-width: $breakpoint-mobile) {
+      height: 48px;
+    }
+
+    &--clear {
+      background: $white;
+      border: 2px solid $primary-blue;
+      color: $primary-blue;
+
+      &:hover {
+        background: rgba($primary-blue, 0.05);
+      }
+    }
+
+    &--submit {
+      background: $primary-blue;
+      border: 2px solid $primary-blue;
+      color: $white;
+
+      &:hover:not(:disabled) {
+        background: darken($primary-blue, 8%);
+        border-color: darken($primary-blue, 8%);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
